@@ -17,14 +17,17 @@ defmodule TestLiveInputWeb.Upload do
 
   @impl true
   def render(assigns) do
+    # The tests pass if you remove the surrounding <div>
     ~L"""
-    <form id="logo-upload" phx-submit="save" phx-change="validate" phx-target="<%= @myself %>">
-    <%= live_file_input @uploads.photo %>
-    <button type="submit">Upload</button>
-    <%= for entry <- @uploads.photo.entries do %>
-      <progress max="100" value="<%= entry.progress %>" class="h-1 w-40"/>
-    <% end %>
-    </form>
+    <div>
+      <form id="logo-upload" phx-submit="save" phx-change="validate" phx-target="<%= @myself %>">
+      <%= live_file_input @uploads.photo %>
+      <button type="submit">Upload</button>
+      <%= for entry <- @uploads.photo.entries do %>
+        <progress max="100" value="<%= entry.progress %>" class="h-1 w-40"/>
+      <% end %>
+      </form>
+    </div>
     """
   end
 end
