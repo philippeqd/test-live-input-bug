@@ -7,7 +7,7 @@ defmodule TestLiveInputWeb.Upload do
   end
 
   @impl true
-  def handle_event("submit", _params, socket) do
+  def handle_event("save", _params, socket) do
     {:noreply, socket}
   end
 
@@ -18,9 +18,12 @@ defmodule TestLiveInputWeb.Upload do
   @impl true
   def render(assigns) do
     ~L"""
-    <form id="logo-upload" phx-submit="save" phx-change="validate">
+    <form id="logo-upload" phx-submit="save" phx-change="validate" phx-target="<%= @myself %>">
     <%= live_file_input @uploads.photo %>
     <button type="submit">Upload</button>
+    <%= for entry <- @uploads.photo.entries do %>
+      <progress max="100" value="<%= entry.progress %>" class="h-1 w-40"/>
+    <% end %>
     </form>
     """
   end
